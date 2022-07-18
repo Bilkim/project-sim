@@ -1,0 +1,121 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Travel and Tourism</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'files/css/style.css' %}">
+        <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+        
+    </head>
+    <body>
+       
+        <div class="container">
+            <div class="left">
+                <div class="sidebar">
+                    <div class="logo_content">
+                        <div class="logo">
+                            <i class='bx bxl-tailwind-css'></i>
+                            <div class="logo_name">Tourism</div>
+                        </div>
+                        <i class='bx bx-menu' id="btn"></i>
+                    </div>
+                    <ul class="nav_list">
+                        <li>                                 
+                            <i class='bx bx-search'></i>
+                            <input type="text" placeholder="Search...">
+                            <span class="tooltip">Search</span>
+                        </li>
+                        <li>
+                            <a href="#profile">
+                                <i class='bx bxs-user-circle'></i>
+                                <span class="links_name">Profile</span>
+                            </a>
+                            <span class="tooltip">Profile</span>
+                        </li>
+                        <li>
+                            <a href="#tourSite">
+                                <i class='bx bx-selection'></i>
+                                <span class="links_name">Tour Sites</span>
+                            </a>
+                            <span class="tooltip">Tour Sites</span>
+                        </li>
+                        <li>
+                            <a href="#hotel" target="_parent">
+                                <i class='bx bxs-hotel'></i>
+                                <span class="links_name">Hotel</span>
+                            </a>
+                            <span class="tooltip">Hotel</span>
+                        </li>
+                        <li>
+                            <a href="#payment">
+                                <i class='bx bxl-paypal'></i>
+                                <span class="links_name">Payment</span>
+                            </a>
+                            <span class="tooltip">Payment</span>
+                        </li>                
+                    </ul>
+                    <div class="profile_contents">
+                        <div class="profile">
+                            <div class="profile_details">
+                                <div class="name_site">
+                                    <div class="name">Bill Kotut</div>
+                                    <div class="site_name">Travel and Vacations</div>
+                                </div>                        
+                            </div>
+                            <i class='bx bx-log-out' id="log_out"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>   
+            
+            <div class="home_content">
+                <div class="m-bar">        
+                    <div class="links">
+                        <a href="home">Home</a>
+                        <a href="">Client Page</a>
+                        <a href="">Guest Page</a>
+                        <a href="#content">Add Package</a>
+                    </div>
+    
+                </div>
+                <br/>
+                <div class="content">
+                    {%if submitted%}
+                       You have successfully added a 
+                       new packages!!!
+                       
+
+                    {%else %}  
+                    <div class="input-group-append">         
+                   
+                      <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+                        <input type="submit" value="Add" class="btn btn-secondary">
+                      </form>
+                    </div> 
+                    {%endif%}
+
+                </div>
+
+            </div>
+              
+            
+
+        </div>
+        
+        <script src="{% static 'files/javascript/index.js' %}">          
+        </script>
+
+        
+
+
+    </body>
+
+</html>
+

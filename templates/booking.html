@@ -1,0 +1,327 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'files/css/booking.css' %}">
+
+</head>
+<body>
+    
+<!-- header section starts  --> 
+
+<header>
+
+    <div class="logo_content">
+        <div class="logo">
+            <i class='bx bxl-tailwind-css' ></i>
+            <a href="#book" class="logo"><span>T</span>ravel And  <span> V</span>acations</a>
+        </div>
+        
+    </div>
+
+
+    <nav class="navbar">
+        <a href="#home">home</a>
+        <a href="#book">book</a>
+        <a href="#packages">packages</a>
+        <a href="#services">services</a>
+        <a href="#gallery">gallery</a>
+        <a href="hotelBook" class="ht">hotel</a>
+        
+    </nav>
+
+    <div class="icons">
+        {% if user.is_authenticated %}
+        <a href="logout"><i class='bx bx-log-out' id="log_out"></i></a>
+        <p class="text" style="color: white; font-size: 1.5rem">Logout</p>
+        {% endif %}
+    </div>
+
+    <form action="" class="search-bar-container>
+        <input type="search" id="search-bar" placeholder="search here...">
+        <label for="search-bar" class="fas fa-search"></label>
+    </form>
+
+</header>
+
+<!-- header section ends -->
+
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3></h3>
+        <p>Explore Kenya and the beautiful wonders it offers</p>
+        <a href="#book" class="btn">discover more</a>
+    </div>
+
+    <div class="controls">
+        <span class="vid-btn active" data-src="{% static 'files/images/vid-1.mp4' %}"></span>
+        <span class="vid-btn" data-src="{% static 'files/images/vid-2.mp4' %}"></span>
+        <span class="vid-btn" data-src="{% static 'files/images/vid-3.mp4' %}"></span>
+        <span class="vid-btn" data-src="{% static 'files/images/vid-4.mp4' %}"></span>
+        <span class="vid-btn" data-src="{% static 'files/images/vid-5.mp4' %}"></span>
+    </div>
+
+    <div class="video-container">
+        <video src="{% static 'files/images/vid-1.mp4' %}" id="video-slider" loop autoplay muted></video>
+    </div>
+
+</section>
+
+<!-- home section ends -->
+
+<!-- book section starts  -->
+
+<section class="book" id="book">
+
+    <h1 class="heading">
+        <span>b</span>
+        <span>o</span>
+        <span>o</span>
+        <span>k</span>
+        <span class="space"></span>
+        <span>n</span>
+        <span>o</span>
+        <span>w</span>
+    </h1>
+
+    <div class="row">
+
+        <div class="image">
+            <img src="{% static 'files/images/p-8.jpg' %}" alt="">
+        </div>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style: none;">
+                <div class="alert" style="margin-left: 5px; margin-right: 5px; border-radius: 3px; padding: 1px; background-color: #1d1b32;
+                        color: white; list-style: none; font-size: 20px; align-items: center;">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';" style="margin: 0.5; color: white; font-weight: bold; float: right; font-size: 20px;
+                                line-height: 15px; cursor: pointer; transition: 0.2s;">&times;</span>
+                {{ message }} 
+                </div>
+                
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}   
+            {% for member in memberList %}
+            <div class="inputBox">
+                {{ member }}<br/>
+            </div>                
+            {% endfor %}    
+
+            <input type="submit" class="btn" value="Save details">
+        </form>
+
+    </div>
+
+</section>
+
+<!-- book section ends -->
+
+<!-- packages section starts  -->
+
+<section class="packages" id="packages">
+
+    <h1 class="heading">
+        <span>p</span>
+        <span>a</span>
+        <span>c</span>
+        <span>k</span>
+        <span>a</span>
+        <span>g</span>
+        <span>e</span>
+        <span>s</span>
+    </h1>
+
+    <div class="box-container">
+
+        {% for package in packageList %}
+        <div class="box">
+            <img src="{{ package.image.url }}" alt="">
+            <div class="content">
+                <h3> <i class="fas fa-map-marker-alt"></i> {{ package.city }} </h3>
+                <p>{{ package.name }} </p>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </div>
+                <div class="price"> Ksh.{{ package.prevPrice }} <span>Ksh.{{ package.latestPrice }}</span> </div>
+                <a href="{% url 'payment' package.id %}" class="btn">Book</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+<!-- packages section ends -->
+
+<!-- services section starts  -->
+
+<section class="services" id="services">
+
+    <h1 class="heading">
+        <span>s</span>
+        <span>e</span>
+        <span>r</span>
+        <span>v</span>
+        <span>i</span>
+        <span>c</span>
+        <span>e</span>
+        <span>s</span>
+    </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <i class="fas fa-hotel"></i>
+            <h3>affordable hotels</h3>
+            <p>Superior room, King sized bed, air-conditioning, free WiFi, flat screen TV, safe, minibar, armchair, desk and guest amenities. Bathroom with heated tile floor features bathtub with shower, slippers, toiletries and hairdryer. Smoking and non-smoking room with connecting doors available.</p>
+        </div>
+        <div class="box">
+            <i class="fas fa-utensils"></i>
+            <h3>food and drinks</h3>
+            <p>Special moments deserve sparkles and bubbles! To make your celebrations unique and unforgettable, we will organize a chilled bottle of sparkling wine.</p>
+        </div>
+        <div class="box">
+            <i class="fas fa-bullhorn"></i>
+            <h3>safty guide</h3>
+            <p>With Kenya tour packages for many travel styles and cultural discovery tours, there is a trip to Kenya with your name on it</p>
+        </div>
+        <div class="box">
+            <i class="fas fa-globe-asia"></i>
+            <h3>explore Kenya</h3>
+            <p>Resident Packages. Looking for a luxurious getaway, family friendly vacation or romantic honeymoon package? Travel and Vacations offers you an opportunity to explore the wonders of Kenya</p>
+        </div>
+        <div class="box">
+            <i class="fas fa-plane"></i>
+            <h3>fastest travel</h3>
+            <p>If you would like to ensure a pleasant tone for the first moments in Riga and have our driver waiting for you at the airport arrivals</p>
+        </div>
+        <div class="box">
+            <i class="fas fa-hiking"></i>
+            <h3>adventures</h3>
+            <p>Don’t forget to take your taste buds on a trip every time you sample the Indian, Asian, Mediterranean and Tex Mexx cuisines. In the evenings, you can revel in any of the live entertainment spots in Dubai.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- services section ends -->
+
+<!-- gallery section starts  -->
+
+<section class="gallery" id="gallery">
+
+    <h1 class="heading">
+        <span>g</span>
+        <span>a</span>
+        <span>l</span>
+        <span>l</span>
+        <span>e</span>
+        <span>r</span>
+        <span>y</span>
+    </h1>
+
+    <div class="box-container">
+
+        {% for venue in venueList %}
+        <div class="box">
+            <img src="{{ venue.image.url }}" alt="">
+            <div class="content">
+                <h3>{{ venue }}<br/></h3>
+                <a href="{% url 'show-venue' venue.id %}" class="btn">{{ venue }}</a>
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+
+</section>
+
+<!-- gallery section ends -->
+
+
+<!-- footer section  -->
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>about us</h3>
+            <p>Travel and Vacations is a prestigious tour agency, we offer vacation opportunities</p>
+            <p>We help you plan your holiday vacation and make it enjoyable as much as possible</p>
+        </div>
+        <div class="box">
+            <h3>branch locations</h3>
+            <a href="#">Eldoret</a>
+            <a href="#">Nairobi</a>
+            <a href="#">Mombasa</a>
+            <a href="#">Nakuru</a>
+        </div>
+        <div class="box">
+            <h3>quick links</h3>
+            <a href="#">home</a>
+            <a href="#">book</a>
+            <a href="#">packages</a>
+            <a href="#">services</a>
+            <a href="#">gallery</a>
+            <a href="#">contact</a>
+            <a href="#">hotel</a>
+        </div>
+        <div class="box">
+            <h3>follow us</h3>
+            <a href="#">facebook</a>
+            <a href="#">instagram</a>
+            <a href="#">twitter</a>
+            <a href="#">linkedin</a>
+        </div>
+
+    </div>
+
+    <h1 class="credit"> Developer: <span> Kotut Bill Kipkorir </span> | copyright 2021 </h1>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- custom js file link  -->
+<script src="{% static 'files/javascript/booking.js' %}"></script>
+
+</body>
+</html>

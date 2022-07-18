@@ -1,0 +1,26 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Events</title>
+    </head>
+    <body>
+        <h1>Events</h1>
+        <br>
+        {% for event in event_list %}
+        <strong>{{ event }}</strong>
+        <li>{{ event.name }}</li>
+        <li>Date:  {{ event.vacationDate }}</li>
+        <li>Venue: {{ event.venue }}</li>
+        <li>Description: {{ event.description }}</li>
+        <li>Manager: {{ event.manager }}</li>
+        <li>Attendees:
+        {% for user in event.attendees.all %}
+        {{ user }}<br/>
+        {% endfor %}
+        </li>
+        <br/>
+        {% endfor %}
+        </ul>
+    </body>
+</html>

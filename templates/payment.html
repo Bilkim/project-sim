@@ -1,0 +1,84 @@
+<div class="container d-lg-flex">
+    <div class="box-1 bg-light user">
+        <div class="d-flex align-items-center mb-3">
+            <p class="ps-2 name">{{ user.username }}</p>
+        </div>
+        <div class="box-inner-1 pb-3 mb-3 ">
+            <div class="d-flex justify-content-between mb-3 userdetails">
+                <p class="fw-bold">{{ package.name }}:</p>
+                <p class="fw-lighter"><span> Ksh.</span> {{ package.latestPrice }}</p>
+            </div>
+            <div id="my" class="carousel slide carousel-fade img-details" data-bs-ride="carousel" data-bs-interval="2000">
+                <div class="carousel-indicators"> <button type="button" data-bs-target="#my" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> <button type="button" data-bs-target="#my" data-bs-slide-to="1" aria-label="Slide 2"></button> <button type="button" data-bs-target="#my" data-bs-slide-to="2" aria-label="Slide 3"></button> </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active"> <img src="{{ package.image.url }}"> </div>
+                    <div class="carousel-item"> <img src="https://www.vacay.co.ke/wp-content/uploads/2014/07/lake-naivasha-fish-eagle.jpg"> </div>
+                    <div class="carousel-item"> <img src="https://www.vacay.co.ke/wp-content/uploads/2017/10/elephant-mount-kilimanjaro-e1507789037913.jpg"> </div>
+                </div> <button class="carousel-control-prev" type="button" data-bs-target="#my" data-bs-slide="prev">
+                    <div class="icon"> <span class="fas fa-arrow-left"></span> </div> <span class="visually-hidden">Previous</span>
+                </button> <button class="carousel-control-next" type="button" data-bs-target="#my" data-bs-slide="next">
+                    <div class="icon"> <span class="fas fa-arrow-right"></span> </div> <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <p class="dis my-3 info"><strong>City:</strong> {{ package.city }}</p>
+            <p class="dis mb-3 updates"><strong>Address:</strong> {{ package.address }}</p>
+            <p class="dis mb-3 different"><strong> Date:</strong> {{ package.arrDate }}</p>
+            <p class="dis mb-3 different"><strong> Attending:</strong> {{ att }}</p>
+            <p class="dis mb-3 different"><strong> Total Price:</strong> {{ price }}</p>
+        
+        </div>
+    </div>
+    <div class="box-2">
+        <div class="box-inner-2">
+            <div>
+                <p class="fw-bold">Payment Details</p>
+                <p class="dis mb-3">Complete your purchase by providing your payment details</p>
+            </div>
+            <div id="paypal-button-container"></div>
+
+            <!-- Include the PayPal JavaScript SDK -->
+            <script src="https://www.paypal.com/sdk/js?client-id=ATV03LD6-CkzYYu3_uLELD0o4agrEMUonmHcwxoijwFBdqKmXDnUac_n-Lj-gHobCSwPHeaMskkLkmjq&currency=USD"></script>
+        
+            <script>
+                 var total = '{{ price2 }}'
+                // Render the PayPal button into #paypal-button-container
+                paypal.Buttons({
+        
+                    style: {
+                        color:  'blue',
+                        shape:  'pill',
+                        label:  'pay',
+                        height: 40
+                    },
+
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: parseFloat(total/1000).toFixed(2)
+                                }
+                            }]
+                        });
+                    },
+        
+                    // Finalize the transaction
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(orderData) {
+                            // Successful capture! For demo purposes:
+                            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                            var transaction = orderData.purchase_units[0].payments.captures[0];
+                            alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+        
+                            // Replace the above to show a success message within this page, e.g.
+                            // const element = document.getElementById('paypal-button-container');
+                            // element.innerHTML = '';
+                            // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                            // Or go to another URL:  actions.redirect('thank_you.html');
+                        });
+                    }
+        
+                }).render('#paypal-button-container');
+            </script>
+        </div>
+    </div>
+</div>

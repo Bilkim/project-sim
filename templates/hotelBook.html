@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Travel and Tourism</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'files/css/hotel.css' %}">
+        <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+        
+    </head>
+    <body>
+       
+        <div class="container">
+
+            <div class="right">
+                
+                <div class="home_content">
+                    <div class="m-bar">        
+                        <div class="links">
+                            <a href="#header">Home</a>
+                            <a href="#services">Services</a>
+                            <a href="#hotelBook">Book</a>                            
+                            <a href="/vacation/booking">Tour Packages</a>
+                            <a href="/dashboard/dashboard">Dashboard</a>
+                            <a href="#"><i class='bx bx-log-out' id="log_out"></i></a>
+                            
+                        </div>
+
+                                               
+        
+                    </div>
+        
+                    <div class="content">
+                        <div id="hotel" >
+                            <!-- header -->
+                    <header class = "header" id = "header">
+                    <div class = "head-top">
+                        <div class = "site-name">
+                            <span>Hotel Booking</span>
+                        </div>
+                    </div>
+        
+                    <div class = "head-bottom flex">
+                        <h2>TRAVEL AND VACATIONS HOTEL BOOKING</h2>
+                        <p>Book a hotel for you and your family for your vacation, we have quite the exquisite test for you. Hope you enjoy our services.</p>
+                        <button type = "button" class = "head-btn">GET STARTED</button>
+                    </div>
+                    </header>
+                    <!-- end of header -->
+        
+        
+                    <!-- body content  -->
+                    <section class = "services sec-width" id = "services">
+                    <div class = "title">
+                        <h2>Hotel Services</h2>
+                    </div>
+                    <div class = "services-container">
+                        <!-- single service -->
+                        <article class = "service">
+                            <div class = "service-icon">
+                                <span>
+                                    <i class = "fas fa-utensils"></i>
+                                </span>
+                            </div>
+                            <div class = "service-content">
+                                <h2>Room Services Offered</h2>
+                                <p>19 square meter Superior room, King sized bed, air-conditioning, free WiFi, flat screen TV, safe, minibar, armchair, desk and guest amenities. Bathroom with heated tile floor features bathtub with shower, slippers, toiletries and hairdryer. Smoking and non-smoking room with connecting doors available.</p>
+                                <button type = "button" class = "btn">Know More</button>
+                            </div>
+                        </article>
+                        <!-- end of single service -->
+                        <!-- single service -->
+                        <article class = "service">
+                            <div class = "service-icon">
+                                <span>
+                                    <i class = "fas fa-swimming-pool"></i>
+                                </span>
+                            </div>
+                            <div class = "service-content">
+                                <h2>Business King Room</h2>
+                                <p>The Business King Room provides leisure and business travelers with a luxuriously comfortable, tranquil retreat and is the perfect space for work or relaxation at the end of the day.</p>
+                                <button type = "button" class = "btn">Know More</button>
+                            </div>
+                        </article>
+                        <!-- end of single service -->
+                        <!-- single service -->
+                        <article class = "service">
+                            <div class = "service-icon">
+                                <span>
+                                    <i class = "fas fa-broom"></i>
+                                </span>
+                            </div>
+                            <div class = "service-content">
+                                <h2>Wine Special Offers</h2>
+                                <p>Special moments deserve sparkles and bubbles! To make your celebrations unique and unforgettable, we will organize a chilled bottle of sparkling wine.</p>
+                                <button type = "button" class = "btn">Know More</button>
+                            </div>
+                        </article>
+                        <!-- end of single service -->
+                        <!-- single service -->
+                        <article class = "service">
+                            <div class = "service-icon">
+                                <span>
+                                    <i class = "fas fa-door-closed"></i>
+                                </span>
+                            </div>
+                            <div class = "service-content">
+                                <h2>Hotel Offers</h2>
+                                <p>If you would like to ensure a pleasant tone for the first moments in Riga and have our driver waiting for you at the airport arrivals</p>
+                                <button type = "button" class = "btn">Know More</button>
+                            </div>
+                        </article>
+                        <!-- end of single service -->
+                    </div>
+                    </section>
+        
+                    <div class = "book" id="hotelBook">
+                    <form class = "book-form" method="POST">
+                        {% csrf_token %}
+                        <div class = "form-item">
+                           {{ hotelList.last_name }}
+                        </div>
+                        
+                        <div class = "form-item">
+                            <label for = "checkin-date">Check In Date: </label>
+                            {{ membList.inDate }}
+                        </div>
+                        <div class = "form-item">
+                            <label for = "checkout-date">Check Out Date: </label>
+                            {{ membList.outDate }}
+                        </div>
+                        <div class = "form-item">
+                            <label for = "adult">Adults: </label>
+                            {{ membList.adultNo }}
+                        </div>
+                        <div class = "form-item">
+                            <label for = "children">Children: </label>
+                            {{ membList.childrenNo }}
+                        </div>
+                        <div class = "form-item">
+                            <label for = "rooms">Rooms: </label>
+                            {{ membList.roomNo }}
+                        </div>
+                        <div class = "form-item">
+                            <input type = "submit" class = "btn" value = "Save Details">
+                        </div>
+                    </form>
+                    </div>
+        
+                    <section class = "rooms sec-width" id = "rooms">
+                    <div class = "title">
+                        <h2>Rooms</h2>
+                    </div>
+                    
+                    <div class = "rooms-container">
+                        <!-- single room -->
+                        {% for room in hotelRoom %}                        
+                        <article class = "room">
+                            <div class = "room-image">
+                                <img src = "{{ room.roomImage.url }}" alt = "">
+                            </div>
+                            <div class = "room-text">
+                                <h3>{{ room.hotelName }}</h3>
+                                <ul>
+                                    <li>
+                                        <i class = "fas fa-arrow-alt-circle-right"></i>
+                                        Address: {{ room.address }}
+                                    </li>
+                                    <li>
+                                        <i class = "fas fa-arrow-alt-circle-right"></i>
+                                        Contact: {{ room.phone }}
+                                    </li>
+                                    
+                                </ul>
+                                <p>{{ room.description }}</p>
+                            
+                                <p class = "rate">
+                                    <span>Price: {{ room.price }} /</span> Per Night
+                                </p>
+                                <a href="{%url 'hotelPayment' room.id %}"><button type="button" class="btn">Book</button></a>
+                            </div>
+                        </article>
+                        {% endfor %}                        
+                        <!-- end of single room -->
+                    </div>
+                    
+                    </section>
+    
+                    <!-- end of body content -->
+                
+                <script src="{% static 'files/javascript/hotel.js' %}"></script>                    
+        
+                        </div>
+                    </div>
+        
+                </div>
+
+            </div>           
+              
+            
+
+        </div>
+        
+        <script src="{% static 'files/javascript/index.js' %}">          
+        </script>
+
+
+    </body>
+
+</html>
+

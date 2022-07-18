@@ -1,0 +1,37 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Venues</title>
+    </head>
+    <body> 
+        <form action="" method="GET">
+            {% csrf_token %}
+            {{ users.username }}
+            {% for mem in member.id %}
+            <h1>{{ mem.first_name }}</h1>
+            <p>{{ mem.last_name }}</p>
+            <p>{{ mem.address }}</p>
+            {% endfor %}
+        </form>
+        
+
+        <br/>
+        <br/>
+        <h1>{{ package }}</h1>
+        <img src="{{ package.image.url }}" alt="img"><br/>
+        {{ package.city }}<br/>
+        {{ package.name }}<br/>
+        {{ package.address }}<br/>
+        {{ package.phone }}<br/>
+        {{ package.arrDate }}<br/>
+        {{ package.leavDate }}<br/>
+        {{ package.latestPrice }}<br/>
+        <p>{{ package.description1 }}<br/></p>
+        <p>{{ package.description2 }}<br/></p>
+        <p>{{ package.description3 }}<br/></p>
+        
+        <br>
+       
+    </body>
+</html>

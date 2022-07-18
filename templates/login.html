@@ -1,0 +1,58 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'files/css/login.css' %}">
+<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
+<div id="login">
+ 
+     <div class="container" id="container">
+       <div class="form-container sign-in-container"> 
+         
+          {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style: none;">
+              <div class="alert" style="margin-left: 20px; margin-right: 20px; border-radius: 7px; padding: 5px; background-color: #1d1b32;
+                      color: white; list-style: none; font-size: 12px;">
+                      <span class="closebtn" onclick="this.parentElement.style.display='none';" style="margin: 0; color: white; font-weight: bold; float: right; font-size: 15px;
+                                line-height: 15px; cursor: pointer; transition: 0.2s;">&times;</span>
+              {{ message }} 
+              </div>
+              
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}   
+          <form method="POST" action="">
+             <h1>Login</h1>
+             {% csrf_token %}
+             {{form.as_p}}
+
+            <div class="social-container">
+              <a href="#" class="social"><img src="{% static 'files/images/faceb.png' %}" alt="img"></a>
+              <a href="#" class="social"><img src="{% static 'files/images/google.png' %}" alt="img"></a>
+              <a href="#" class="social"><img src="{% static 'files/images/insta.png' %}" alt="img"></a>
+            </div>
+            <span>or use your username to login</span>
+
+            <input type="text" name="username" placeholder="Username">           
+            <input type="password" name="password" placeholder="Password">
+            <a class="fg" href="forgot">Forgot your password?</a>
+            <input id="btn" type="submit" value="login">
+          </form>
+        </div>
+        <div class="overlay-container">
+          <div class="overlay">
+            <div class="overlay-panel overlay-right">
+              <h1>Hello, Friend!</h1>
+              <p>Welcome to Travel and Vacations, Register and start the journey with us through vast experiences</p>
+              <a href="register"><button class="ghost" id="signUp">Sign Up</button></a>
+           </div>
+          </div>
+        </div>
+     </div>
+
+     
+
+</div>
+

@@ -1,0 +1,92 @@
+<!--
+{% block content %}
+{% load static %}
+
+{% if forms.errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>            
+     </div>
+
+
+        {% endif %}
+        <div class="container" id="container">
+                <div class="form-container sign-in-container">
+                        <h1>Create an Account</h1>
+                       <form method="POST" action="">
+                         {% csrf_token %}
+                           {{form.as_p}}
+
+                           
+                           {{form.username}}
+                           {{form.email}}
+                           {{form.first_name}}
+                           {{form.lastname}}
+                           {{form.password1}}
+                           {{form.password2}}
+
+            <input type="submit" value="Register">
+            </form>
+                </div>
+        </div>
+        
+    {% endblock %}
+
+-->
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'files/css/login.css' %}">
+<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
+<div id="register">
+ 
+        <div class="container2" id="container">
+             <div class="form-container sign-up-container">
+               {% if messages %}
+               <ul class="messages">
+                   {% for message in messages %}
+                   <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                   {% endfor %}
+               </ul>
+               {% endif %}
+                  
+                <form action="#" method="POST">
+                   <h1 class="head">Create Account</h1>
+                   <div class="social-container">
+                      <a href="#" class="social"><img src="{% static 'files/images/faceb.png' %}" alt="img"></a>
+                      <a href="#" class="social"><img src="{% static 'files/images/google.png' %}" alt="img"></a>
+                      <a href="#" class="social"><img src="{% static 'files/images/insta.png' %}" alt="img"></a>
+                   </div>
+                   <span>or use your personal information to register</span>
+                   {% csrf_token %}
+                           {{form.username}}
+                           {{form.email}}
+                           {{form.first_name}}
+                           {{form.last_name}}
+                           {{form.password1}}
+                           {{form.password2}}
+
+                   
+
+                   <input id="btn2" type="submit" value="Register">
+                </form>
+             </div>
+             <div class="overlay-container">
+                <div class="overlay">
+                   <div class="overlay-panel overlay-left">
+                      <h1>Welcome Back!</h1>
+                      <p>To keep connected with us please login with your personal info</p>
+                      <a href="login_user"><button class="ghost" id="signIn">Login</button></a>
+                   </div>
+                </div>
+             </div>
+       </div> 
+       
+
+            
+       
+       <script src="{% static 'files/javascript/login.js'%}"></script>
+       
+
+</div>

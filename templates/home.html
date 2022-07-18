@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tourism Home page</title>
+	<link rel="stylesheet" href="{% static 'files/css/home.css' %}">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+	<div class="wrapper">
+			<nav class="navbar">
+				
+				<ul>
+					<li><a class="active" href="#">Home</a></li>
+					<li><a href="vacation/index">About</a></li>
+					<li><a href="booking">Contact</a></li>
+					<li><a href="/accounts/login_user">Login</a></li>
+					<li><a href="/accounts/register">Register</a></li>
+				</ul>
+			</nav>
+		<div class="center">
+			<h1>Welcome To Travel and Vacations</h1>
+			<h2>Book a Holiday Vacation</h2>
+			<div class="buttons">
+			<button>Explore More</button>
+			<a href="accounts/register"><button class="btn2">Register</button></a>
+		</div>
+	</div>
+	
+</body>
+</html>

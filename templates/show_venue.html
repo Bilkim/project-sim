@@ -1,0 +1,18 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Venues</title>
+    </head>
+    <body> 
+        <h1>{{ book }}</h1>
+        <img src="{{ book.image.url }}" alt="img"><br/>
+        Address: {{ book.address }}<br/>
+        Contact Info: {{ book.phone }}<br/>
+        Start Date: {{ book.arrDate }}<br/>
+        End Date: {{ book.leavDate }}<br/>
+        
+        <br>
+       
+    </body>
+</html>

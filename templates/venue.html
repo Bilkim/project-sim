@@ -1,0 +1,16 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Venues</title>
+    </head>
+    <body>
+        <h1>Venues</h1>
+        <br>
+        {% for venue in venue_list %}
+        <a href="{% url 'show-venue' venue.id %}">{{ venue }}</a><br/>
+        
+        {% endfor %}
+        </ul>
+    </body>
+</html>

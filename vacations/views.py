@@ -102,13 +102,28 @@ def index(request):
 def hotelBook(request):
     hotelMemberList = HotelMembers.objects.all()
     hotelRoom = SpecialRooms.objects.all()
+    
+    user = request.user
+    
+    member_exist = HotelMembers.objects.filter(last_name = user).exists() 
+    
 
-    submit = False
+    submit = False            
     if request.method == "POST":
-        membList = HotelMemberForm(request.POST, request.FILES)
-        if membList.is_valid():
-            membList.save()
-            return HttpResponseRedirect('hotelBook?submit=True')
+        if member_exist:
+            member = HotelMembers.objects.get(last_name = user)
+            membList = HotelMemberForm(request.POST, request.FILES, instance = member)
+            if membList.is_valid():
+                membList.save()
+                messages.success(request, ("Hotel members details updated successfully"))
+                return HttpResponseRedirect('hotelBook?submit=True#hotelBook')
+        else:
+            membList = HotelMemberForm(request.POST, request.FILES)
+            if membList.is_valid():
+                membList.instance.last_name = request.user
+                membList.save()
+                messages.success(request, ("Hotel members details added successfully"))
+                return HttpResponseRedirect('hotelBook?submit=True#hotelBook')
     else:
         membList = HotelMemberForm
         if 'submit' in request.GET:

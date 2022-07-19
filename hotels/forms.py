@@ -32,9 +32,8 @@ class RoomForm(ModelForm):
 class HotelMemberForm(ModelForm):
     class Meta:
         model = HotelMembers
-        fields = ('last_name','inDate','outDate','adultNo','childrenNo', 'roomNo')
+        fields = ('inDate','outDate','adultNo','childrenNo', 'roomNo')
         labels = {
-            'last_name': '',
             'inDate': '',
             'outDate': '',
             'adultNo': '',
@@ -45,7 +44,6 @@ class HotelMemberForm(ModelForm):
         }
 
         widgets = {
-            'last_name': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Guest Name'}),
             'inDate': forms.DateInput(attrs={'class':'form-control', 'placeholder': 'Check In Date', 'type': 'date', 'id': 'checkin-date'}),
             'outDate': forms.NumberInput(attrs={'class':'form-control ', 'placeholder': 'Check Out Date', 'type': 'date', 'id': 'checkout-date'}),
             'adultNo': forms.NumberInput(attrs={'class':'form-control ', 'placeholder': 'Number of adults(above 18 years old)', 'type': 'number', 'id': 'adult'}),

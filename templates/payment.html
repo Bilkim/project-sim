@@ -1,12 +1,12 @@
 <div class="container d-lg-flex">
     <div class="box-1 bg-light user">
         <div class="d-flex align-items-center mb-3">
-            <p class="ps-2 name">{{ user.username }}</p>
+            <p class="fw-bold">Vacation package payment summary for {{ user.first_name }} {{ user.last_name }} </p>
         </div>
         <div class="box-inner-1 pb-3 mb-3 ">
             <div class="d-flex justify-content-between mb-3 userdetails">
                 <p class="fw-bold">{{ package.name }}:</p>
-                <p class="fw-lighter"><span> Ksh.</span> {{ package.latestPrice }}</p>
+                <p class="fw-lighter"><span> Ksh.</span> {{ package.latestPrice }} per person</p>
             </div>
             <div id="my" class="carousel slide carousel-fade img-details" data-bs-ride="carousel" data-bs-interval="2000">
                 <div class="carousel-indicators"> <button type="button" data-bs-target="#my" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> <button type="button" data-bs-target="#my" data-bs-slide-to="1" aria-label="Slide 2"></button> <button type="button" data-bs-target="#my" data-bs-slide-to="2" aria-label="Slide 3"></button> </div>
@@ -22,7 +22,8 @@
             </div>
             <p class="dis my-3 info"><strong>City:</strong> {{ package.city }}</p>
             <p class="dis mb-3 updates"><strong>Address:</strong> {{ package.address }}</p>
-            <p class="dis mb-3 different"><strong> Date:</strong> {{ package.arrDate }}</p>
+            <p class="dis mb-3 different"><strong> Start Date:</strong> {{ package.arrDate }} <strong> End Date:</strong> {{ package.leavDate }}</p>
+            <p class="dis mb-3 different"><strong> Duration:</strong> {{ duration }}</p>
             <p class="dis mb-3 different"><strong> Attending:</strong> {{ att }}</p>
             <p class="dis mb-3 different"><strong> Total Price:</strong> {{ price }}</p>
         

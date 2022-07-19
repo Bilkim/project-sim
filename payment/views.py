@@ -1,13 +1,10 @@
 from django.shortcuts import render
-from django.views import View
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from accounts.models import TourUser
 from vacations.models import MemberUsers, Packages
 from vacations.forms import PackageForm
 from django.contrib.auth import get_user_model
 from hotels.models import SpecialRooms, HotelMembers
-from dashboard.models import CustomerChoice
 from hotels.forms import RoomForm
 from hotels.models import HotelMembers, SpecialRooms
 from hotels.forms import UserFilter
@@ -23,6 +20,11 @@ def payment(request, packages_id):
     user = TourUser.objects.get(email = request.user.email)
     print(user.email)
     
+    arr_date = package.arrDate
+    leave_date = package.leavDate
+    
+    duration = (leave_date - arr_date).days
+    
     members_list = MemberUsers.objects.get(first_name = user)    
     
     all_members = MemberUsers.objects.all()   
@@ -30,7 +32,7 @@ def payment(request, packages_id):
     
     
     attendees = members_list.members    
-    totalPrice = price * attendees       
+    totalPrice = price * attendees
     dollarPrice = totalPrice/100 
     
     if not request.user.is_authenticated:
@@ -51,23 +53,30 @@ def payment(request, packages_id):
 
     
     return render (request, 'paymbase.html',
-           {'package': package, 'user': user, 'context' : context, 'filter': memb_filter, 'att': attendees,'price': totalPrice, 'price2': dollarPrice})
+           {'package': package, 'user': user, 'duration': duration,'context' : context, 'filter': memb_filter, 'att': attendees,'price': totalPrice, 'price2': dollarPrice})
 
 
 def hotelPayment(request, hotel_id):
     hotel = SpecialRooms.objects.get(pk=hotel_id)
-    price = SpecialRooms.price  
+    price = hotel.price  
     
     users = request.user
-    users.save()
     
     hotel_list = HotelMembers.objects.all()
     hotel_filter = UserFilter(request.GET, queryset = hotel_list)    
-    members_list = MemberUsers.objects.all()         
+    member = HotelMembers.objects.get(last_name = users)  
+    
+    adult = member.adultNo
+    children = member.childrenNo     
+    
+    in_date = member.inDate
+    out_date = member.outDate
+    days = (out_date - in_date).days
+    
 
-    totalFamily = members_list[0].members
-    totalPrice = price     
-    dollarPrice = totalPrice
+    totalFamily = adult + children
+    totalPrice = price * totalFamily * days    
+    dollarPrice = totalPrice/100
     
     if not request.user.is_authenticated:
         return redirect('accounts:login')
@@ -87,5 +96,5 @@ def hotelPayment(request, hotel_id):
 
     
     return render (request, 'hotelPayment.html',
-           {'hotels': hotel,'hotelList': hotel_list, 'user': users,'family': totalFamily, 'hotelFilter': hotel_filter ,'roomPrice': totalPrice, 'roomPrice2': dollarPrice, 'context':context})
+           {'hotels': hotel,'hotelList': hotel_list, 'total_days': days, 'member_details': member,'user': users,'family': totalFamily, 'hotelFilter': hotel_filter ,'roomPrice': price, 'totalPrice': totalPrice, 'roomPrice2': dollarPrice, 'context':context})
 

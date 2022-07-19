@@ -117,36 +117,48 @@
                     </section>
         
                     <div class = "book" id="hotelBook">
-                    <form class = "book-form" method="POST">
-                        {% csrf_token %}
-                        <div class = "form-item">
-                           {{ hotelList.last_name }}
-                        </div>
-                        
-                        <div class = "form-item">
-                            <label for = "checkin-date">Check In Date: </label>
-                            {{ membList.inDate }}
-                        </div>
-                        <div class = "form-item">
-                            <label for = "checkout-date">Check Out Date: </label>
-                            {{ membList.outDate }}
-                        </div>
-                        <div class = "form-item">
-                            <label for = "adult">Adults: </label>
-                            {{ membList.adultNo }}
-                        </div>
-                        <div class = "form-item">
-                            <label for = "children">Children: </label>
-                            {{ membList.childrenNo }}
-                        </div>
-                        <div class = "form-item">
-                            <label for = "rooms">Rooms: </label>
-                            {{ membList.roomNo }}
-                        </div>
-                        <div class = "form-item">
-                            <input type = "submit" class = "btn" value = "Save Details">
-                        </div>
-                    </form>
+                        {% if messages %}
+                        <ul class="messages">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style: none;">
+                            <div class="alert" style="margin-left: 5px; margin-right: 5px; border-radius: 3px; padding: 1px; background-color: #1d1b32;
+                                    color: white; list-style: none; font-size: 20px; align-items: center;">
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';" style="margin: 0.5; color: white; font-weight: bold; float: right; font-size: 20px;
+                                            line-height: 15px; cursor: pointer; transition: 0.2s;">&times;</span>
+                            {{ message }} 
+                            </div>
+                            
+                        </li>
+                        {% endfor %}
+                        </ul>
+                        {% endif %}   
+                    
+                        <form class = "book-form" method="POST">
+                            {% csrf_token %}                        
+                            <div class = "form-item">
+                                <label for = "checkin-date">Check In Date: </label>
+                                {{ membList.inDate }}
+                            </div>
+                            <div class = "form-item">
+                                <label for = "checkout-date">Check Out Date: </label>
+                                {{ membList.outDate }}
+                            </div>
+                            <div class = "form-item">
+                                <label for = "adult">Adults: </label>
+                                {{ membList.adultNo }}
+                            </div>
+                            <div class = "form-item">
+                                <label for = "children">Children: </label>
+                                {{ membList.childrenNo }}
+                            </div>
+                            <div class = "form-item">
+                                <label for = "rooms">Rooms: </label>
+                                {{ membList.roomNo }}
+                            </div>
+                            <div class = "form-item">
+                                <input type = "submit" class = "btn" value = "Save Details">
+                            </div>
+                        </form>
                     </div>
         
                     <section class = "rooms sec-width" id = "rooms">

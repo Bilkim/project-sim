@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-bbw2fac$^q*jn2_-&x!xcxr=s+r^joa&82ivzrktq0-zs_aur#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "2b04-102-135-169-114.ngrok.io"]
 
 AUTH_USER_MODEL = 'accounts.TourUser'
 
@@ -139,6 +139,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

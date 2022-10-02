@@ -1,3 +1,4 @@
+from email import message
 from django.contrib.auth import authenticate,login, get_user_model
 from django.shortcuts import render,redirect
 from django.contrib import messages
@@ -46,16 +47,20 @@ def register(request):
             form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
-            user = authenticate(username=username, password=password)
-            login(request, user)
             
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+           # Redirect to a success page.            
             
             messages.success(request, ("Registration Successful"))
             return redirect('login')
+        
+        messages.error(request, "Unsuccessful registration. Invalid information.")
 
     else: 
         form = createUserForm()
-        
+      
     context = {'form': form}
     return render(request, 'register.html', context);
 

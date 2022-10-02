@@ -23,9 +23,9 @@
             <p class="dis my-3 info"><strong>City:</strong> {{ package.city }}</p>
             <p class="dis mb-3 updates"><strong>Address:</strong> {{ package.address }}</p>
             <p class="dis mb-3 different"><strong> Start Date:</strong> {{ package.arrDate }} <strong> End Date:</strong> {{ package.leavDate }}</p>
-            <p class="dis mb-3 different"><strong> Duration:</strong> {{ duration }}</p>
+            <p class="dis mb-3 different"><strong> Duration:</strong> {{ duration }} days</p>
             <p class="dis mb-3 different"><strong> Attending:</strong> {{ att }}</p>
-            <p class="dis mb-3 different"><strong> Total Price:</strong> {{ price }}</p>
+            <p class="dis mb-3 different"><strong> Total Price:</strong> {{ price }} Ksh</p>
         
         </div>
     </div>
@@ -56,7 +56,7 @@
                         return actions.order.create({
                             purchase_units: [{
                                 amount: {
-                                    value: parseFloat(total/1000).toFixed(2)
+                                    value: parseFloat(total/100).toFixed(2)
                                 }
                             }]
                         });
@@ -71,9 +71,9 @@
                             alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
         
                             // Replace the above to show a success message within this page, e.g.
-                            // const element = document.getElementById('paypal-button-container');
-                            // element.innerHTML = '';
-                            // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                            const element = document.getElementById('paypal-button-container');
+                            element.innerHTML = '';
+                            element.innerHTML = '<h3>Thank you for your payment!</h3>';
                             // Or go to another URL:  actions.redirect('thank_you.html');
                         });
                     }

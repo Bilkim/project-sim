@@ -98,3 +98,6 @@ def hotelPayment(request, hotel_id):
     return render (request, 'hotelPayment.html',
            {'hotels': hotel,'hotelList': hotel_list, 'total_days': days, 'member_details': member,'user': users,'family': totalFamily, 'hotelFilter': hotel_filter ,'roomPrice': price, 'totalPrice': totalPrice, 'roomPrice2': dollarPrice, 'context':context})
 
+
+def pay(request):
+    return render(request, 'options_base.html');

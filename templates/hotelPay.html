@@ -24,10 +24,10 @@
             <p class="dis mb-3 updates"><strong>Address: </strong> {{ hotels.address }}</p>
             <p class="dis mb-3 different"><strong> Contact: </strong> {{ hotels.phone }}</p>
             <p class="dis mb-3 different"><strong> Check in date: </strong> {{ member_details.inDate }} <strong>Check out date: </strong> {{ member_details.outDate }}</p>
-            <p class="dis mb-3 different"><strong> Total number of days in:</strong> {{ total_days }}</p>
+            <p class="dis mb-3 different"><strong> Total number of days in:</strong> {{ total_days }} days</p>
             <p class="dis mb-3 different"><strong> Attending:</strong> {{ family }}</p>
             <p class="dis mb-3 different"><strong> Number of rooms:</strong> {{ member_details.roomNo }}</p>
-            <p class="dis mb-3 different"><strong> Total Price:</strong> {{ totalPrice }}</p>
+            <p class="dis mb-3 different"><strong> Total Price:</strong> {{ totalPrice }} Ksh</p>
         
         </div>
     </div>
@@ -43,7 +43,7 @@
             <script src="https://www.paypal.com/sdk/js?client-id=ATV03LD6-CkzYYu3_uLELD0o4agrEMUonmHcwxoijwFBdqKmXDnUac_n-Lj-gHobCSwPHeaMskkLkmjq&currency=USD"></script>
         
             <script>
-                 var total = '{{ hotels.price }}'
+                 var total = '{{ totalPrice }}'
                 // Render the PayPal button into #paypal-button-container
                 paypal.Buttons({
         
@@ -58,7 +58,7 @@
                         return actions.order.create({
                             purchase_units: [{
                                 amount: {
-                                    value: parseFloat(total/1000).toFixed(2)
+                                    value: parseFloat(total/100).toFixed(2)
                                 }
                             }]
                         });
@@ -68,9 +68,9 @@
                     onApprove: function(data, actions) {
                         return actions.order.capture().then(function(orderData) {
                             // Successful capture! For demo purposes:
-                            //console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                            //var transaction = orderData.purchase_units[0].payments.captures[0];
-                            //alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+                            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                            var transaction = orderData.purchase_units[0].payments.captures[0];
+                            alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
         
                             //Replace the above to show a success message within this page, e.g.
                             const element = document.getElementById('paypal-button-container');

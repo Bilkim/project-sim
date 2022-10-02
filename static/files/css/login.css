@@ -77,8 +77,8 @@ a {
     border: none;
     border-radius: 7px;
     color: white;
-    padding: 20px 10px;
-    margin: 4px 2px;
+    padding: 10px 10px;
+    margin: 2px;
     cursor: pointer;
 }
 
@@ -112,10 +112,10 @@ button{
   color: white;
   font-size: 17px;
   font-weight: 400;
-  padding: 10px 25px;
+  padding: 10px 10px;
   border: none;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 7px;
   text-align: center;
 }
 
@@ -196,6 +196,7 @@ input {
 	width: 50%;
 	z-index: 2;
 }
+
 
 .container.right-panel-active .sign-in-container {
 	transform: translateX(100%);

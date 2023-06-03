@@ -8,8 +8,8 @@ from accounts.models import TourUser
 class SpecialRooms(models.Model):
     hotelName = models.CharField('Hotel Name',max_length=300)
     roomImage = models.ImageField('Image', upload_to='Images/', default='img1.jpg')
-    address = models.CharField('Location',max_length=300)
-    phone = models.CharField('Contact Phone', max_length=25)
+    address = models.CharField('Location',max_length=50)
+    phone = models.CharField('Contact Phone', max_length=50)
     description = models.TextField(blank=True)
     price = models.FloatField('Price per Night', max_length=150)
     
@@ -20,8 +20,8 @@ class SpecialRooms(models.Model):
 
 class HotelMembers(models.Model):
     last_name = models.OneToOneField(TourUser, null=True ,on_delete=models.CASCADE)
-    inDate = models.DateField('Check In Date',max_length=300)
-    outDate = models.DateField('Check Out Date', max_length=25)
+    inDate = models.DateField('Check In Date',max_length=50)
+    outDate = models.DateField('Check Out Date', max_length=50)
     adultNo = models.IntegerField('Number of Adults')
     childrenNo = models.IntegerField('Number of Children')
     roomNo = models.IntegerField('Number of Rooms')

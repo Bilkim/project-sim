@@ -2,20 +2,22 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.http import HttpResponseRedirect
 from dashboard.models import Order
-from django.contrib.auth.models import User
 from django.core import serializers
 from django.contrib import messages
 from hotels.forms import HotelMemberForm, RoomForm
 from vacations.forms import MemberForm, PackageForm
 from vacations.models import Packages
 from accounts.forms import createUserForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth import get_user_model
 from accounts.decorators import  allowed_users, admin_only
 from django.db.models import Sum
 from time import gmtime, strftime
 
+User = get_user_model()
+
 @login_required(login_url='login_user')
-@allowed_users(allowed_roles=['admin'])
+@user_passes_test(lambda u: u.is_superuser)
 def dashboard(request):
     users = User.objects.all()
     packageList = Packages.objects.all()
@@ -28,12 +30,12 @@ def dashboard(request):
 
 
 @login_required(login_url='login_user')
-@allowed_users(allowed_roles=['admin'])
+@user_passes_test(lambda u: u.is_superuser)
 def transaction(request):
     return render(request, 'transactions.html', {})
 
 @login_required(login_url='login_user')
-@allowed_users(allowed_roles=['admin'])
+@user_passes_test(lambda u: u.is_superuser)
 def settings(request):
     userDet = User.objects.all()
     submitted = False
@@ -92,7 +94,7 @@ def settings(request):
     return render(request, 'settings.html', {'memberList': memberList, 'packFormList': packFormList, 'submitPackage' : submitPackage, 'submitted': submitted, 'roomList': roomList, 'submit': submit, 'userDet': userDet, 'form': form})
 
 @login_required(login_url='login_user')
-@allowed_users(allowed_roles=['admin'])
+@user_passes_test(lambda u: u.is_superuser)
 def tables(request):
     return render(request, 'tables-bootstrap-tables.html', {})
 

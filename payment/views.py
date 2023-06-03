@@ -8,6 +8,7 @@ from hotels.models import SpecialRooms, HotelMembers
 from hotels.forms import RoomForm
 from hotels.models import HotelMembers, SpecialRooms
 from hotels.forms import UserFilter
+from payment.models import Package_Payment_Details, Hotel_Payment_Details
 
 User = get_user_model()
 
@@ -27,13 +28,16 @@ def payment(request, packages_id):
     
     members_list = MemberUsers.objects.get(first_name = user)    
     
+    
     all_members = MemberUsers.objects.all()   
     memb_filter = UserFilter(request.GET, queryset = all_members)  
     
     
     attendees = members_list.members    
     totalPrice = price * attendees
-    dollarPrice = totalPrice/100 
+    dollarPrice = totalPrice
+    
+    Package_Payment_Details.objects.create(customer = user, package = package, amount_paid = dollarPrice, no_of_attendees = attendees)
     
     if not request.user.is_authenticated:
         return redirect('accounts:login')
@@ -71,12 +75,15 @@ def hotelPayment(request, hotel_id):
     
     in_date = member.inDate
     out_date = member.outDate
-    days = (out_date - in_date).days
+    days = (in_date - out_date).days
+
     
 
     totalFamily = adult + children
     totalPrice = price * totalFamily * days    
     dollarPrice = totalPrice/100
+    
+    Hotel_Payment_Details.objects.create(customer = users, hotel = hotel, amount_paid = totalPrice, no_of_adults = adult, no_of_children = children)
     
     if not request.user.is_authenticated:
         return redirect('accounts:login')

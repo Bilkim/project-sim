@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-bbw2fac$^q*jn2_-&x!xcxr=s+r^joa&82ivzrktq0-zs_aur#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "2b04-102-135-169-114.ngrok.io"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "808a-102-135-169-114.ngrok.io"]
 
 AUTH_USER_MODEL = 'accounts.TourUser'
 

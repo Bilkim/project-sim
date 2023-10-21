@@ -23,7 +23,7 @@ pip install git
 ```
 6. Clone the project into your folder:
 ```
-git clone  
+git clone https://github.com/Bilkim/project-sim.git
 ``` 
 Packages for the project are contained in the requirements.txt file and can be installed using the command below:
 ```
